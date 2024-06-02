@@ -6,6 +6,9 @@ router.get("/api/:date", (req,res) =>{
     try {
         let date = new Date(req.params.date);
         if(date.toUTCString() == "Invalid Date"){
+            date = new Date(+req.params.date);
+        }
+        if(date.toUTCString() == "Invalid Date"){
             res.status(400).json({error: "Invalid Date"})
         }
         let unix = date.getTime();
