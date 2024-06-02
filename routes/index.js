@@ -1,41 +1,17 @@
 const { Router } = require('express');
 const router = Router();
 
+const {getDate} = require("../controllers/getDate")
+const {convertDate} = require("../controllers/convertDate")
 
-router.get("/api/:date", (req,res) =>{
-    try {
-        let date = new Date(req.params.date);
-        if(date.toUTCString() == "Invalid Date"){
-            date = new Date(+req.params.date);
-        }
-        if(date.toUTCString() == "Invalid Date"){
-            res.status(400).json({error: "Invalid Date"})
-        }
-        let unix = date.getTime();
-        let utc = date.get
+router.use((req, res, next) => {
+    console.log(`Request URL: ${req.url}`);
+    next();
+});
 
-        res.status(200).json({
-            unix: unix,
-            utc: utc
-        })
-    } catch (error) {
-        res.status(500).json(error.message)
-    }
-    
-})
+router.get("/api/:date?", convertDate);
+router.get("/api", getDate);
 
-router.get("/api", (req, res) =>{
-    try {
-        let date = new Date()
-        let unix = date.getTime();
-        let utc = date.toUTCString();
-        res.status(200).json({
-            unix: unix,
-            utc: utc
-        })
-    } catch (error) {
-        res.status(500).json(error.message)
-    }
 
-})
+
 module.exports = router;
