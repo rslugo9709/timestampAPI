@@ -1,14 +1,30 @@
 
 async function convertDate(req, res){
     try {
-        console.log("entra aqui: convertir");
-        const {date} = req.query;
-        console.log("se imprime lo que se recibe")
-        console.log(date);
-        console.log("se imprime el tipo de dato")
-        console.log(typeof date);
 
-        let fecha = new Date(parseInt(date,10));
+        const {date} = req.query;
+        if(!date){
+            console.log("entra aqui: fecha actual");
+            let fecha = new Date()
+            let unix = fecha.getTime();
+            let utc = fecha.toUTCString();
+            return res.status(200).json({
+                unix: unix,
+                utc: utc
+            })
+        }
+
+
+        console.log("entra aqui: convertir");
+        
+        let fecha = '';
+        if(date.includes("-")){
+            fecha = new Date(date);
+        }else{
+            fecha = new Date(parseInt(date,10));
+        }
+        
+        
         console.log("se procede a imprimir la fecha")
         console.log(fecha);
         if(fecha.toUTCString() == "Invalid Date"){

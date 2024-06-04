@@ -10,7 +10,7 @@ router.use((req, res, next) => {
 });
 
 router.get("/api/:date?", convertDate);
-router.get("/api", getDate);
+
 
 
 
