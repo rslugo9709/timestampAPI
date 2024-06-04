@@ -18,9 +18,10 @@ async function convertDate(req, res){
         console.log("entra aqui: convertir");
         
         let fecha = '';
-        if(date.includes("-")){
+        if(date.includes("-") || date.includes("/") || date.includes(" ")){
             fecha = new Date(date);
-        }else{
+        }
+        else{
             fecha = new Date(parseInt(date,10));
         }
         
